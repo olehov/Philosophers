@@ -6,7 +6,7 @@
 /*   By: ogrativ <ogrativ@student.42london.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 13:45:27 by ogrativ           #+#    #+#             */
-/*   Updated: 2024/09/05 14:39:57 by ogrativ          ###   ########.fr       */
+/*   Updated: 2024/09/10 15:43:28 by ogrativ          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,4 +102,3 @@ long	get_time(t_time_type time_type)
 		return (0);
 	}
 }
-

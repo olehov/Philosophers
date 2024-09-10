@@ -6,7 +6,7 @@
 /*   By: ogrativ <ogrativ@student.42london.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 16:14:39 by ogrativ           #+#    #+#             */
-/*   Updated: 2024/09/10 13:52:51 by ogrativ          ###   ########.fr       */
+/*   Updated: 2024/09/10 15:43:45 by ogrativ          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,6 @@ void	print(char *str, t_philosopher *philo)
 
 void	print_message(t_philosopher *philo, t_state state)
 {
-	// long	time;
-	// char	*message;
-
 	if (state == _TAKE_LEFT_FORK || state == _TAKE_RIGHT_FORK)
 		print("has taken a fork\n", philo);
 	else if (state == _EATING && !simulation_finished(philo->table))
@@ -39,8 +36,4 @@ void	print_message(t_philosopher *philo, t_state state)
 		print("died\n", philo);
 	else
 		return ;
-	// pthread_mutex_lock(&philo->table->mutexes.print_mutex);
-	// time = get_time(_MILLISECOND);
-	// printf("%ld %i %s\n", time, philo->id, message);
-	// pthread_mutex_unlock(&philo->table->mutexes.print_mutex);
 }

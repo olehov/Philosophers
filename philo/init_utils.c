@@ -6,7 +6,7 @@
 /*   By: ogrativ <ogrativ@student.42london.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 13:36:34 by ogrativ           #+#    #+#             */
-/*   Updated: 2024/09/09 14:21:17 by ogrativ          ###   ########.fr       */
+/*   Updated: 2024/09/10 15:43:14 by ogrativ          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,30 +17,9 @@ void	assign_fork(t_philosopher *philo, t_fork *forks, int philo_id)
 	int	philo_number;
 
 	philo_number = philo->table->number_of_philo;
-
 	philo->l_fork = &forks[(philo_id + 1) % philo_number];
 	philo->r_fork = &forks[philo_id];
-	// if (philo_number % 2 == 0)
-	// {
-	// 	philo->l_fork = &forks[philo_id];
-	// 	philo->r_fork = &forks[(philo_id + 1) % philo_number];
-	// }
 }
-
-// void	set_philosopher(t_philosopher *philo, t_table *table, int id)
-// {
-// 	if (philo == NULL)
-// 	{
-// 		return ;
-// 	}
-// 	philo->id = id + 1;
-// 	philo->is_full = false;
-// 	philo->last_meal_time = 0;
-// 	philo->number_of_meals = 0;
-// 	philo->table = table;
-// 	philo->state = _EATING;
-// 	assign_fork(philo, table->forks, id);
-// }
 
 t_philosopher	*philosophers_init(t_table *table)
 {
@@ -55,7 +34,6 @@ t_philosopher	*philosophers_init(t_table *table)
 		return (NULL);
 	while (i < table->number_of_philo)
 	{
-		// set_philosopher(&philos[i], table, i);
 		philos[i].id = i + 1;
 		philos[i].is_full = false;
 		philos[i].last_meal_time = 0;

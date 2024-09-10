@@ -6,7 +6,7 @@
 /*   By: ogrativ <ogrativ@student.42london.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 14:41:47 by ogrativ           #+#    #+#             */
-/*   Updated: 2024/09/10 13:48:14 by ogrativ          ###   ########.fr       */
+/*   Updated: 2024/09/10 15:41:07 by ogrativ          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ typedef struct s_mutex_struct
 	pthread_mutex_t	set_get_int;
 	pthread_mutex_t	mutex_state;
 }	t_mutex;
-
 
 typedef struct s_fork
 {
@@ -109,12 +108,10 @@ struct s_table
 	t_mutex			mutexes;
 };
 
-void			print(char *str, t_philosopher *philo);
+// void			print(char *str, t_philosopher *philo);
 
 /* Initialization and Simulation */
 void			table_init(t_table *table, int argc, char **argv);
-t_philosopher	*philosopher_init(t_table *table);
-void			fork_init(int id, t_fork *fork);
 void			start_simulation(t_table *table);
 
 /* Time and Sleep Management */
@@ -128,10 +125,11 @@ int				ft_atoi(const char *str);
 void			print_error_with_endl(char *error);
 void			*safe_malloc(size_t byte);
 bool			simulation_finished(t_table *table);
+void			fork_handler(t_philosopher *philo,
+					t_fork *fork, bool take);
+int				try_take_fork(t_philosopher *philo);
 
 /* Philosopher Actions */
-bool			take_fork(pthread_mutex_t *mutex, t_philosopher *philo,
-					t_state state);
 int				eating(t_philosopher *philo);
 void			sleeping(t_philosopher *philo);
 void			thinking(t_philosopher *philo);
