@@ -1,0 +1,75 @@
+==1001892== Memcheck, a memory error detector
+==1001892== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==1001892== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==1001892== Command: ./a.out 5 400 200 150 5
+==1001892== Parent PID: 1001874
+==1001892== 
+==1001892== 
+==1001892== Process terminating with default action of signal 2 (SIGINT)
+==1001892==    at 0x402019: get_bool (in /home/ogrativ/student_projects/Philosophers/philo/a.out)
+==1001892==    by 0x401900: ft_table_controller (in /home/ogrativ/student_projects/Philosophers/philo/a.out)
+==1001892==    by 0x4905AC2: start_thread (pthread_create.c:442)
+==1001892==    by 0x4996A03: clone (clone.S:100)
+==1001892== 
+==1001892== HEAP SUMMARY:
+==1001892==     in use at exit: 2,160 bytes in 6 blocks
+==1001892==   total heap usage: 6 allocs, 0 frees, 2,160 bytes allocated
+==1001892== 
+==1001892== 128 bytes in 1 blocks are still reachable in loss record 1 of 5
+==1001892==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1001892==    by 0x402C74: safe_malloc (in /home/ogrativ/student_projects/Philosophers/philo/a.out)
+==1001892==    by 0x4020DA: philosophers_init (in /home/ogrativ/student_projects/Philosophers/philo/a.out)
+==1001892==    by 0x402458: table_init (in /home/ogrativ/student_projects/Philosophers/philo/a.out)
+==1001892==    by 0x402637: main (in /home/ogrativ/student_projects/Philosophers/philo/a.out)
+==1001892== 
+==1001892== 192 bytes in 1 blocks are still reachable in loss record 2 of 5
+==1001892==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1001892==    by 0x402C74: safe_malloc (in /home/ogrativ/student_projects/Philosophers/philo/a.out)
+==1001892==    by 0x40220A: forks_init (in /home/ogrativ/student_projects/Philosophers/philo/a.out)
+==1001892==    by 0x402430: table_init (in /home/ogrativ/student_projects/Philosophers/philo/a.out)
+==1001892==    by 0x402637: main (in /home/ogrativ/student_projects/Philosophers/philo/a.out)
+==1001892== 
+==1001892== 272 bytes in 1 blocks are possibly lost in loss record 3 of 5
+==1001892==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1001892==    by 0x40147D9: calloc (rtld-malloc.h:44)
+==1001892==    by 0x40147D9: allocate_dtv (dl-tls.c:375)
+==1001892==    by 0x40147D9: _dl_allocate_tls (dl-tls.c:634)
+==1001892==    by 0x49067B4: allocate_stack (allocatestack.c:430)
+==1001892==    by 0x49067B4: pthread_create@@GLIBC_2.34 (pthread_create.c:647)
+==1001892==    by 0x402AAB: start_simulation (in /home/ogrativ/student_projects/Philosophers/philo/a.out)
+==1001892==    by 0x402643: main (in /home/ogrativ/student_projects/Philosophers/philo/a.out)
+==1001892== 
+==1001892== 544 bytes in 2 blocks are possibly lost in loss record 4 of 5
+==1001892==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1001892==    by 0x40147D9: calloc (rtld-malloc.h:44)
+==1001892==    by 0x40147D9: allocate_dtv (dl-tls.c:375)
+==1001892==    by 0x40147D9: _dl_allocate_tls (dl-tls.c:634)
+==1001892==    by 0x49067B4: allocate_stack (allocatestack.c:430)
+==1001892==    by 0x49067B4: pthread_create@@GLIBC_2.34 (pthread_create.c:647)
+==1001892==    by 0x402A7E: start_simulation (in /home/ogrativ/student_projects/Philosophers/philo/a.out)
+==1001892==    by 0x402643: main (in /home/ogrativ/student_projects/Philosophers/philo/a.out)
+==1001892== 
+==1001892== 1,024 bytes in 1 blocks are still reachable in loss record 5 of 5
+==1001892==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1001892==    by 0x48EFBA3: _IO_file_doallocate (filedoalloc.c:101)
+==1001892==    by 0x48FECDF: _IO_doallocbuf (genops.c:347)
+==1001892==    by 0x48FDF5F: _IO_file_overflow@@GLIBC_2.2.5 (fileops.c:744)
+==1001892==    by 0x48FC6D4: _IO_new_file_xsputn (fileops.c:1243)
+==1001892==    by 0x48FC6D4: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1196)
+==1001892==    by 0x48E6CA8: outstring_func (vfprintf-internal.c:239)
+==1001892==    by 0x48E6CA8: __vfprintf_internal (vfprintf-internal.c:1516)
+==1001892==    by 0x48D179E: printf (printf.c:33)
+==1001892==    by 0x40275D: print (in /home/ogrativ/student_projects/Philosophers/philo/a.out)
+==1001892==    by 0x4027B5: print_message (in /home/ogrativ/student_projects/Philosophers/philo/a.out)
+==1001892==    by 0x401257: fork_handler (in /home/ogrativ/student_projects/Philosophers/philo/a.out)
+==1001892==    by 0x401446: fork_take (in /home/ogrativ/student_projects/Philosophers/philo/a.out)
+==1001892==    by 0x4012FC: try_take_fork (in /home/ogrativ/student_projects/Philosophers/philo/a.out)
+==1001892== 
+==1001892== LEAK SUMMARY:
+==1001892==    definitely lost: 0 bytes in 0 blocks
+==1001892==    indirectly lost: 0 bytes in 0 blocks
+==1001892==      possibly lost: 816 bytes in 3 blocks
+==1001892==    still reachable: 1,344 bytes in 3 blocks
+==1001892==         suppressed: 0 bytes in 0 blocks
+==1001892== 
+==1001892== ERROR SUMMARY: 2 errors from 2 contexts (suppressed: 0 from 0)
