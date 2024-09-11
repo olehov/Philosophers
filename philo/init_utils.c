@@ -6,13 +6,13 @@
 /*   By: ogrativ <ogrativ@student.42london.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 13:36:34 by ogrativ           #+#    #+#             */
-/*   Updated: 2024/09/10 15:43:14 by ogrativ          ###   ########.fr       */
+/*   Updated: 2024/09/11 16:08:10 by ogrativ          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	assign_fork(t_philosopher *philo, t_fork *forks, int philo_id)
+static void	assign_fork(t_philosopher *philo, t_fork *forks, int philo_id)
 {
 	int	philo_number;
 
@@ -21,7 +21,7 @@ void	assign_fork(t_philosopher *philo, t_fork *forks, int philo_id)
 	philo->r_fork = &forks[philo_id];
 }
 
-t_philosopher	*philosophers_init(t_table *table)
+static t_philosopher	*philosophers_init(t_table *table)
 {
 	t_philosopher	*philos;
 	int				i;
@@ -46,7 +46,7 @@ t_philosopher	*philosophers_init(t_table *table)
 	return (philos);
 }
 
-t_fork	*forks_init(t_table *table)
+static t_fork	*forks_init(t_table *table)
 {
 	t_fork	*forks;
 	int		i;
@@ -68,7 +68,7 @@ t_fork	*forks_init(t_table *table)
 	return (forks);
 }
 
-void	ft_mutex_init(t_table *table)
+static void	ft_mutex_init(t_table *table)
 {
 	pthread_mutex_init(&table->mutexes.print_mutex, NULL);
 	pthread_mutex_init(&table->mutexes.set_get_bool, NULL);

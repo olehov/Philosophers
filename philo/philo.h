@@ -6,7 +6,7 @@
 /*   By: ogrativ <ogrativ@student.42london.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 14:41:47 by ogrativ           #+#    #+#             */
-/*   Updated: 2024/09/10 15:41:07 by ogrativ          ###   ########.fr       */
+/*   Updated: 2024/09/11 16:04:10 by ogrativ          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,7 @@ typedef enum e_state
 	_THINKING,
 	_EATING,
 	_TAKE_LEFT_FORK,
-	_TAKE_RIGHT_FORK,
-	_PUT_LEFT_FORK,
-	_PUT_RIGHT_FORK
+	_TAKE_RIGHT_FORK
 }	t_state;
 
 typedef enum e_time_type
@@ -58,7 +56,6 @@ typedef struct s_mutex_struct
 typedef struct s_fork
 {
 	int				id;
-	int				philo_id_taken;
 	bool			is_taken;
 	pthread_mutex_t	mutex_state;
 	pthread_mutex_t	mutex;
@@ -122,6 +119,7 @@ long			get_time(t_time_type time_type);
 size_t			ft_strlen(char *str);
 long			ft_atol(char *str);
 int				ft_atoi(const char *str);
+int				check_valid_input(int argc, char **argv);
 void			print_error_with_endl(char *error);
 void			*safe_malloc(size_t byte);
 bool			simulation_finished(t_table *table);

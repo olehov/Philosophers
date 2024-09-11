@@ -6,7 +6,7 @@
 /*   By: ogrativ <ogrativ@student.42london.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 15:03:24 by ogrativ           #+#    #+#             */
-/*   Updated: 2024/08/20 11:38:07 by ogrativ          ###   ########.fr       */
+/*   Updated: 2024/09/11 14:52:46 by ogrativ          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static int	check_if_all_integers(int argc, char **argv)
 		{
 			if (argv[j][i] < '0' || argv[j][i] > '9')
 			{
-				printf("Character aren't decimal\n");
+				printf("Character not decimal\n");
 				return (-1);
 			}
 			i++;
@@ -47,7 +47,7 @@ static int	check_input(int argc, char **argv)
 	{
 		if (ft_atoi(argv[i]) < 1)
 		{
-			printf("Argument less than 1");
+			printf("Argument less than 1\n");
 			return (-1);
 		}
 		i++;
@@ -64,8 +64,8 @@ int	check_valid_input(int argc, char **argv)
 			"[number_of_times_each_philosopher_must_eat]\n");
 		return (-1);
 	}
-	if (check_if_all_integers(argc, argv) == -1
-		|| check_input(argc, argv) == -1)
+	if (check_input(argc, argv) == -1
+		|| check_if_all_integers(argc, argv) == -1)
 	{
 		return (-1);
 	}

@@ -9,18 +9,18 @@ all:
 run_leaks:
 	@rm -f a.out
 	$(CC) $(CFLAGS) $(SRCS)
-	valgrind --tool=helgrind -s --history-level=approx --log-file=valgrind-out.txt ./a.out 5 400 100 200 5
+	valgrind --tool=helgrind -s --history-level=approx --log-file=valgrind-out.txt ./a.out 5 800 100 200 5
 
 run_valgrind:
 	@rm -f a.out
 	$(CC) $(CFLAGS) $(SRCS)
-	valgrind --track-origins=yes --leak-check=full --show-leak-kinds=all -s --log-file=valgrind-out.txt ./a.out 5 400 200 150 5
+	valgrind --track-origins=yes --leak-check=full --show-leak-kinds=all -s --log-file=valgrind-out.txt ./a.out 5 800 100 200 5
 
 
 run:
 	@rm -f a.out
 	$(CC) $(CFLAGS) $(SRCS)
-	./a.out 5 400 200 100 5
+	./a.out 2 310 200 100
 
 
 clean:

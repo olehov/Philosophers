@@ -6,13 +6,13 @@
 /*   By: ogrativ <ogrativ@student.42london.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 16:14:39 by ogrativ           #+#    #+#             */
-/*   Updated: 2024/09/10 15:43:45 by ogrativ          ###   ########.fr       */
+/*   Updated: 2024/09/11 16:08:59 by ogrativ          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	print(char *str, t_philosopher *philo)
+static void	print(char *str, t_philosopher *philo)
 {
 	long	time;
 

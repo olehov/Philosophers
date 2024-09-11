@@ -6,7 +6,7 @@
 /*   By: ogrativ <ogrativ@student.42london.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 15:28:13 by ogrativ           #+#    #+#             */
-/*   Updated: 2024/09/10 15:28:16 by ogrativ          ###   ########.fr       */
+/*   Updated: 2024/09/11 16:05:26 by ogrativ          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ static int	fork_take(t_philosopher *philo, t_fork *fork, bool take)
 	bool	is_taken;
 
 	is_taken = false;
-	while (philo->state != _DIED || !is_taken)
+	while (philo->state != _DIED || !is_taken
+		|| !simulation_finished(philo->table))
 	{
 		if (get_time(_MILLISECOND) - philo->last_meal_time
 			>= philo->table->time_to_die)
@@ -56,20 +57,25 @@ static int	fork_take(t_philosopher *philo, t_fork *fork, bool take)
 
 int	try_take_fork(t_philosopher *philo)
 {
-	bool	is_taken;
-
-	is_taken = false;
 	if (philo->id % 2 == 0)
 	{
 		if (fork_take(philo, philo->l_fork, true) == -1)
 			return (-1);
-		return (fork_take(philo, philo->r_fork, true));
+		else if (fork_take(philo, philo->r_fork, true) == -1)
+		{
+			fork_handler(philo, philo->l_fork, false);
+			return (-1);
+		}
 	}
 	else
 	{
 		if (fork_take(philo, philo->r_fork, true) == -1)
 			return (-1);
-		return (fork_take(philo, philo->l_fork, true));
+		else if (fork_take(philo, philo->l_fork, true) == -1)
+		{
+			fork_handler(philo, philo->r_fork, false);
+			return (-1);
+		}
 	}
 	return (0);
 }

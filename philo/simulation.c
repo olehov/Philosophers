@@ -6,7 +6,7 @@
 /*   By: ogrativ <ogrativ@student.42london.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 11:45:33 by ogrativ           #+#    #+#             */
-/*   Updated: 2024/09/10 12:46:42 by ogrativ          ###   ########.fr       */
+/*   Updated: 2024/09/11 12:23:15 by ogrativ          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,5 +39,10 @@ void	start_simulation(t_table *table)
 	set_long(&table->mutexes.set_get_long,
 		&table->start_time, get_time(_MILLISECOND));
 	i = 0;
+	while (i < table->number_of_philo)
+	{
+		pthread_detach(table->philosophers[i].thread_id);
+		i++;
+	}
 	pthread_join(table->table_controller, NULL);
 }

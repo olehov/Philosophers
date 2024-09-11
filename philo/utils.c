@@ -6,7 +6,7 @@
 /*   By: ogrativ <ogrativ@student.42london.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 13:45:27 by ogrativ           #+#    #+#             */
-/*   Updated: 2024/09/10 15:43:28 by ogrativ          ###   ########.fr       */
+/*   Updated: 2024/09/11 16:09:59 by ogrativ          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,6 @@ void	table_destroy(t_table *table)
 	}
 	if (table->forks != NULL)
 	{
-		while (++i < table->number_of_philo)
-		{
-			pthread_mutex_destroy(&table->forks[i].mutex);
-		}
 		free(table->forks);
 	}
 	if (table->philosophers != NULL)

@@ -6,13 +6,13 @@
 /*   By: ogrativ <ogrativ@student.42london.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 16:14:39 by ogrativ           #+#    #+#             */
-/*   Updated: 2024/09/10 15:58:44 by ogrativ          ###   ########.fr       */
+/*   Updated: 2024/09/11 16:05:11 by ogrativ          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	check_full_philosophers(t_table *table)
+static int	check_full_philosophers(t_table *table)
 {
 	int	i;
 	int	full_philosophers;
