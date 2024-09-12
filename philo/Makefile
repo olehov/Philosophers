@@ -1,32 +1,31 @@
 SRCS = $(wildcard *.c)
-OBJS = ${SRCS:.c=.o}
+OBJS = $(SRCS:%.c=build/%.o)
 CFLAGS = -Wall -Wextra -Werror -pthread
 CC = cc
+BUILD_DIR = build
+EXEC = philo
 
-all:
-	$(CC) $(CFLAGS) $(SRCS)
+all: $(BUILD_DIR) $(EXEC)
 
-run_leaks:
-	@rm -f a.out
-	$(CC) $(CFLAGS) $(SRCS)
-	valgrind --tool=helgrind -s --history-level=approx --log-file=valgrind-out.txt ./a.out 5 800 100 200 5
+$(BUILD_DIR):
+	mkdir -p $(BUILD_DIR)
 
-run_valgrind:
-	@rm -f a.out
-	$(CC) $(CFLAGS) $(SRCS)
-	valgrind --track-origins=yes --leak-check=full --show-leak-kinds=all -s --log-file=valgrind-out.txt ./a.out 5 800 100 200 5
+$(EXEC): $(OBJS)
+	$(CC) $(CFLAGS) -o $(EXEC) $(OBJS)
 
+build/%.o: %.c | $(BUILD_DIR)
+	$(CC) $(CFLAGS) -c $< -o $@
 
-run:
-	@rm -f a.out
-	$(CC) $(CFLAGS) $(SRCS)
-	./a.out 2 310 200 100
-
+run: $(EXEC)
+	./$(EXEC) 5 800 200 200
 
 clean:
-	@rm -f a.out
+	@rm -f $(OBJS)
 
-fclean:
-	@rm -f a.out
+fclean: clean
+	@rm -f $(EXEC)
+	@rm -rf $(BUILD_DIR)
 
-.PHONY: all make_leaks clean fclean re
+re: fclean all
+
+.PHONY: all run clean fclean re
