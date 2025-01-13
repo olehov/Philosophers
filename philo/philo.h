@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ogrativ <ogrativ@student.42london.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/19 14:41:47 by ogrativ           #+#    #+#             */
-/*   Updated: 2024/09/11 16:04:10 by ogrativ          ###   ########.fr       */
+/*   Created: 2024/12/20 22:21:06 by ogrativ           #+#    #+#             */
+/*   Updated: 2025/01/13 13:48:01 by ogrativ          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,14 @@
 # define PHILO_H
 
 # include <pthread.h>
-# include <stdbool.h>
 # include <stdlib.h>
-# include <stdio.h>
 # include <limits.h>
-# include <sys/time.h>
 # include <unistd.h>
-# include <string.h>
-# include "ft_color_utils.h"
+# include <stdio.h>
+# include <stdbool.h>
+# include <sys/time.h>
 
 typedef struct s_table	t_table;
-
-typedef enum e_state
-{
-	_DIED,
-	_SLEEPING,
-	_THINKING,
-	_EATING,
-	_TAKE_LEFT_FORK,
-	_TAKE_RIGHT_FORK
-}	t_state;
 
 typedef enum e_time_type
 {
@@ -42,118 +30,109 @@ typedef enum e_time_type
 	_MICROSECOND
 }	t_time_type;
 
-typedef struct s_mutex_struct
+typedef enum e_message
 {
-	pthread_mutex_t	print_mutex;
-	pthread_mutex_t	set_get_state;
-	pthread_mutex_t	set_get_time;
-	pthread_mutex_t	set_get_bool;
-	pthread_mutex_t	set_get_long;
-	pthread_mutex_t	set_get_int;
-	pthread_mutex_t	mutex_state;
-}	t_mutex;
+	_TAKE_FORK,
+	_EATING,
+	_SLEEPING,
+	_THINKING,
+	_DIED
+}	t_message;
 
 typedef struct s_fork
 {
-	int				id;
-	bool			is_taken;
-	pthread_mutex_t	mutex_state;
-	pthread_mutex_t	mutex;
+	size_t	id;
+	pthread_mutex_t	fork;
 }	t_fork;
 
-typedef struct s_philosopher
+typedef struct s_mutexes
 {
-	int				id;
-	int				number_of_meals;
-	bool			is_full;
-	long			last_meal_time;
-	t_state			state;
-	t_fork			*l_fork;
-	t_fork			*r_fork;
-	t_table			*table;
-	pthread_t		thread_id;
-}	t_philosopher;
+	pthread_mutex_t	is_finished;
+	pthread_mutex_t	start;
+	pthread_mutex_t	can_print;
+	pthread_mutex_t	print;
+}	t_mutexes;
 
-/*
-time_to_die (in milliseconds):
-	If a philosopher didn’t start eating time_to_die
-	milliseconds since the beginning of their last meal or the beginning
-	of the simulation, they die.
-time_to_eat (in milliseconds):
-	The time it takes for a philosopher to eat.
-	During that time, they will need to hold two forks.
-time_to_sleep (in milliseconds):
-	The time a philosopher will spend sleeping.
-meals_to_finish  (optional argument):
-	If all philosophers have eaten at least meals_to_finish times,
-	the simulation stops. If not specified, the simulation stops when a
-	philosopher dies.
-*/
-struct s_table
+typedef struct s_philo
 {
-	int				number_of_philo;
-	int				meals_to_finish;
-	bool			is_end_simulation;
-	bool			ready_to_start;
-	long			start_time;
-	long			time_to_die;
-	long			time_to_sleep;
-	long			time_to_eat;
-	t_philosopher	*philosophers;
-	pthread_t		table_controller;
-	t_fork			*forks;
-	t_mutex			mutexes;
-};
+	size_t		id;
+	size_t		last_meal_time;
+	size_t		max_meals;
+	size_t		meals_counter;
+	size_t		time_to_eat;
+	size_t		time_to_sleep;
+	bool		is_full;
+	t_fork		*left_fork;
+	t_fork		*rigth_fork;
+	t_table		*table;
+	pthread_mutex_t		m_is_full;
+	pthread_mutex_t		m_last_meal_time;
+	pthread_t	thread_id;
+}	t_philo;
 
-// void			print(char *str, t_philosopher *philo);
+/**
+ * @struct s_table
+ * @param philosophers array of pointers to t_philo struct
+ * @param max_meals (optional argument): how many times each philosopher
+ * will eat before the simulation stop
+ * @param number_of_philos how many philosophers at the table
+ * @param time_to_die (in milliseconds): if philosopher didn't start eating
+ * time_to_die since the beginning of their last meal
+ * or the beginning of simulation, they die
+ * @param time_to_eat (in milliseconds): the time it takes for a philosopher
+ * to eat. During that time, they will need to hold two forks
+ * @param time_to_sleep (in milliseconds):
+ * the time a philosopher will spend sleep
+ */
+typedef struct s_table
+{
+	t_philo		**philosophers;
+	size_t		number_of_philos;
+	size_t		time_to_die;
+	size_t		time_to_eat;
+	size_t		time_to_sleep;
+	bool		is_finished;
+	bool		ready_to_start;
+	bool		can_print;
+	t_mutexes	*mutexes;
+	t_fork		**forks;
+}	t_table;
 
-/* Initialization and Simulation */
-void			table_init(t_table *table, int argc, char **argv);
-void			start_simulation(t_table *table);
+t_philo		**philos_init(size_t max_meals, t_table *table);
 
-/* Time and Sleep Management */
-int				precise_usleep(size_t usec);
-long			get_time(t_time_type time_type);
+t_table		*table_init(char *argv[], int argc);
 
-/* Utility Functions */
-size_t			ft_strlen(char *str);
-long			ft_atol(char *str);
-int				ft_atoi(const char *str);
-int				check_valid_input(int argc, char **argv);
-void			print_error_with_endl(char *error);
-void			*safe_malloc(size_t byte);
-bool			simulation_finished(t_table *table);
-void			fork_handler(t_philosopher *philo,
-					t_fork *fork, bool take);
-int				try_take_fork(t_philosopher *philo);
+int			ft_pthreads_init(t_table *table);
 
-/* Philosopher Actions */
-int				eating(t_philosopher *philo);
-void			sleeping(t_philosopher *philo);
-void			thinking(t_philosopher *philo);
-void			*run_thread(void *philosopher);
-void			wait_all_threads(t_table *table);
+void		print_message(t_message type, size_t time,
+				size_t philo_id, t_table *table);
 
-/* Table Controller */
-void			*ft_table_controller(void *t);
+void		set_bool(bool *var, pthread_mutex_t *mutex, bool value);
+void		set_size_t(size_t *var, pthread_mutex_t *mutex, size_t value);
 
-/* Message Printing */
-void			print_message(t_philosopher *philo, t_state state);
+void		start_controler(t_table	*table);
+void		*start_simulation(void *philo);
 
-/* Getters */
-int				get_int(pthread_mutex_t *mutex, int	*value);
-long			get_long(pthread_mutex_t *mutex, long	*value);
-bool			get_bool(pthread_mutex_t *mutex, bool	*value);
-t_state			get_state(pthread_mutex_t *mutex, t_state *value);
+bool		get_bool(bool *var, pthread_mutex_t *mutex);
+size_t		get_size_t(size_t *var, pthread_mutex_t *mutex);
+size_t		get_time(t_time_type time_type);
 
-/* Setters */
-void			set_int(pthread_mutex_t *mutex, int *value_to_set, int value);
-void			set_long(pthread_mutex_t *mutex,
-					long *value_to_set, long value);
-void			set_bool(pthread_mutex_t *mutex,
-					bool *value_to_set, bool value);
-void			set_state(pthread_mutex_t *mutex, t_state *value_to_set,
-					t_state value);
+size_t		ft_strlen(const char *str);
 
-void			table_destroy(t_table *table);
+t_mutexes	*init_mutexes(void);
+
+t_fork		**init_forks(size_t size);
+
+char		*ft_ultoa(size_t numb);
+char		**ft_split(char const *s, char c);
+size_t		ft_atoul(const char *str);
+
+void		precise_usleep(size_t usec);
+void		wait_all_threads(t_table *table);
+
+void		destroy_mutexes(t_mutexes *mutexes);
+void		free_philos(t_philo **philos);
+void		free_forks(t_fork **forks);
+void		free_table(t_table *table);
+
 #endif

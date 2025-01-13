@@ -5,24 +5,29 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ogrativ <ogrativ@student.42london.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/27 12:43:50 by ogrativ           #+#    #+#             */
-/*   Updated: 2024/09/11 16:08:35 by ogrativ          ###   ########.fr       */
+/*   Created: 2025/01/06 13:37:27 by ogrativ           #+#    #+#             */
+/*   Updated: 2025/01/10 15:26:07 by ogrativ          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	main(int argc, char **argv)
+int	main(int argc, char *argv[])
 {
-	t_table			table;
+	t_table			*table;
 
 	if (argc == 5 || argc == 6)
 	{
-		if (check_valid_input(argc, argv) == -1)
+		// if (check_valid_input(argc, argv) == -1)
+		// 	return (EXIT_FAILURE);
+		table = table_init(argv, argc);
+		if (table == NULL)
 			return (EXIT_FAILURE);
-		table_init(&table, argc, argv);
-		start_simulation(&table);
-		table_destroy(&table);
+		if (ft_pthreads_init(table) == -1)
+			return (free_table(table), EXIT_FAILURE);
+		start_controler(table);
+		wait_all_threads(table);
+		free_table(table);
 	}
 	else
 	{
