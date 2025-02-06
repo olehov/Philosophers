@@ -6,7 +6,7 @@
 /*   By: ogrativ <ogrativ@student.42london.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/20 22:21:06 by ogrativ           #+#    #+#             */
-/*   Updated: 2025/01/13 13:48:01 by ogrativ          ###   ########.fr       */
+/*   Updated: 2025/02/06 17:39:27 by ogrativ          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ typedef enum e_message
 
 typedef struct s_fork
 {
-	size_t	id;
+	size_t			id;
 	pthread_mutex_t	fork;
 }	t_fork;
 
@@ -55,19 +55,19 @@ typedef struct s_mutexes
 
 typedef struct s_philo
 {
-	size_t		id;
-	size_t		last_meal_time;
-	size_t		max_meals;
-	size_t		meals_counter;
-	size_t		time_to_eat;
-	size_t		time_to_sleep;
-	bool		is_full;
-	t_fork		*left_fork;
-	t_fork		*rigth_fork;
-	t_table		*table;
+	size_t				id;
+	size_t				last_meal_time;
+	size_t				max_meals;
+	size_t				meals_counter;
+	size_t				time_to_eat;
+	size_t				time_to_sleep;
+	bool				is_full;
+	t_fork				*left_fork;
+	t_fork				*rigth_fork;
+	t_table				*table;
 	pthread_mutex_t		m_is_full;
 	pthread_mutex_t		m_last_meal_time;
-	pthread_t	thread_id;
+	pthread_t			thread_id;
 }	t_philo;
 
 /**
@@ -129,6 +129,9 @@ size_t		ft_atoul(const char *str);
 
 void		precise_usleep(size_t usec);
 void		wait_all_threads(t_table *table);
+
+void		drop_forks(t_philo *philo);
+void		take_forks(t_philo *philo);
 
 void		destroy_mutexes(t_mutexes *mutexes);
 void		free_philos(t_philo **philos);

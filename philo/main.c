@@ -6,7 +6,7 @@
 /*   By: ogrativ <ogrativ@student.42london.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 13:37:27 by ogrativ           #+#    #+#             */
-/*   Updated: 2025/01/10 15:26:07 by ogrativ          ###   ########.fr       */
+/*   Updated: 2025/01/14 13:48:44 by ogrativ          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@ int	main(int argc, char *argv[])
 
 	if (argc == 5 || argc == 6)
 	{
-		// if (check_valid_input(argc, argv) == -1)
-		// 	return (EXIT_FAILURE);
 		table = table_init(argv, argc);
 		if (table == NULL)
 			return (EXIT_FAILURE);

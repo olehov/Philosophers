@@ -6,7 +6,7 @@
 /*   By: ogrativ <ogrativ@student.42london.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 13:10:47 by ogrativ           #+#    #+#             */
-/*   Updated: 2025/01/13 11:37:58 by ogrativ          ###   ########.fr       */
+/*   Updated: 2025/01/14 12:46:58 by ogrativ          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ static void	print(char *message, size_t time, size_t philo_id,
 void	print_message(t_message type, size_t time,
 	size_t philo_id, t_table *table)
 {
-	if (get_bool(&table->can_print, &table->mutexes->can_print) || type == _DIED)
+	if (get_bool(&table->can_print, &table->mutexes->can_print)
+		|| type == _DIED)
 	{
 		if (type == _TAKE_FORK)
 			print("has taken a fork", time, philo_id, &table->mutexes->print);

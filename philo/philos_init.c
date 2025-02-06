@@ -6,7 +6,7 @@
 /*   By: ogrativ <ogrativ@student.42london.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 15:49:35 by ogrativ           #+#    #+#             */
-/*   Updated: 2025/01/13 13:37:01 by ogrativ          ###   ########.fr       */
+/*   Updated: 2025/01/14 16:47:05 by ogrativ          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,15 +79,12 @@ t_philo	**philos_init(size_t max_meals, t_table *table)
 
 	if (table == NULL)
 		return (NULL);
-	printf("number of philos: %lu\n", table->number_of_philos);
-	printf("malloc philos\n");
 	philos = malloc(sizeof(t_philo *) * (table->number_of_philos + 1));
 	if (philos == NULL)
 		return (NULL);
 	id = 0;
 	while (id < table->number_of_philos)
 	{
-		printf("philo_init: id: %lu", id + 1);
 		philos[id] = philo_init(id + 1, max_meals, table);
 		if (philos[id] == NULL)
 		{

@@ -6,7 +6,7 @@
 /*   By: ogrativ <ogrativ@student.42london.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 12:52:15 by ogrativ           #+#    #+#             */
-/*   Updated: 2025/01/10 14:08:07 by ogrativ          ###   ########.fr       */
+/*   Updated: 2025/02/06 16:45:38 by ogrativ          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,17 +28,34 @@ size_t	get_time(t_time_type time_type)
 		return (0);
 }
 
-void	precise_usleep(size_t usec)
+// void	precise_usleep(size_t usec)
+// {
+// 	size_t	start;
+// 	size_t	elapsed;
+
+// 	start = get_time(_MILLISECOND);
+// 	elapsed = get_time(_MILLISECOND) - start;
+// 	while (usec > elapsed)
+// 	{
+// 		elapsed = get_time(_MILLISECOND) - start;
+// 		if (usec - elapsed > 1)
+// 			usleep(1000);
+// 	}
+// }
+
+void	precise_usleep(size_t msec)
 {
 	size_t	start;
 	size_t	elapsed;
 
 	start = get_time(_MILLISECOND);
-	elapsed = get_time(_MILLISECOND) - start;
-	while (usec > elapsed)
+	elapsed = 0;
+	while (elapsed < msec)
 	{
 		elapsed = get_time(_MILLISECOND) - start;
-		if (usec - elapsed > 1)
+		if (msec - elapsed > 5)
 			usleep(1000);
+		else
+			usleep(100);
 	}
 }

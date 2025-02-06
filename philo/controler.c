@@ -6,7 +6,7 @@
 /*   By: ogrativ <ogrativ@student.42london.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 18:23:47 by ogrativ           #+#    #+#             */
-/*   Updated: 2025/01/13 14:09:56 by ogrativ          ###   ########.fr       */
+/*   Updated: 2025/02/06 17:36:28 by ogrativ          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,12 @@ static bool	is_died(t_table *table, size_t i)
 	return (false);
 }
 
+static void	set_null(size_t *i, size_t *is_full_count)
+{
+	*i = 0;
+	*is_full_count = 0;
+}
+
 void	start_controler(t_table	*table)
 {
 	size_t	i;
@@ -38,14 +44,11 @@ void	start_controler(t_table	*table)
 	i = 0;
 	is_full_count = 0;
 	set_bool(&table->ready_to_start, &table->mutexes->start, true);
-	precise_usleep(1);
 	while (true)
 	{
+		precise_usleep(1);
 		if (i == table->number_of_philos)
-		{
-			is_full_count = 0;
-			i = 0;
-		}
+			set_null(&i, &is_full_count);
 		if (is_died(table, i))
 			break ;
 		if (get_bool(&table->philosophers[i]->is_full,

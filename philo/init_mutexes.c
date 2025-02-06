@@ -6,7 +6,7 @@
 /*   By: ogrativ <ogrativ@student.42london.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 13:05:57 by ogrativ           #+#    #+#             */
-/*   Updated: 2025/01/13 13:51:33 by ogrativ          ###   ########.fr       */
+/*   Updated: 2025/01/14 12:46:36 by ogrativ          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,3 @@ t_mutexes	*init_mutexes(void)
 	}
 	return (mutexes);
 }
-
