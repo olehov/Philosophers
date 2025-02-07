@@ -1,1 +1,50 @@
-.vscode/
+# Object files and compiled binaries
+*.o
+*.out
+*.a
+*.so
+
+# Executable files
+a.out
+*.exe
+
+# Build directories (if any)
+build/
+bin/
+obj/
+
+# Temporary files created by text editors
+*.swp      # Vim swap files
+*.swo
+*~         # Backup files
+*.bak
+
+# Log files and caches
+*.log
+*.tmp
+*.cache
+*.pid
+*.dSYM/    # macOS crash dump directory
+
+# Configuration files
+*.config
+*.cfg
+*.ini
+
+# IDE/editor-specific files
+.vscode/   # Visual Studio Code settings
+.idea/     # JetBrains CLion, PyCharm, etc.
+*.iml      # IntelliJ-based IDE module files
+*.cbp      # Code::Blocks project files
+*.project  # Eclipse project files
+.ccls-cache/  # ccls (C/C++ language server) cache
+
+# Debugging and profiling artifacts
+*.gcda     # GCC coverage data
+*.gcno
+*.gcov
+vgcore.*   # Valgrind core dumps
+
+# Core dump files
+core.*
+*.core
