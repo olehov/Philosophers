@@ -6,7 +6,7 @@
 /*   By: ogrativ <ogrativ@student.42london.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/20 22:21:06 by ogrativ           #+#    #+#             */
-/*   Updated: 2025/02/06 17:39:27 by ogrativ          ###   ########.fr       */
+/*   Updated: 2025/02/11 14:40:05 by ogrativ          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,9 @@
 # include <stdio.h>
 # include <stdbool.h>
 # include <sys/time.h>
+
+# define RED     "\x1b[31m"
+# define RESET   "\x1b[0m"
 
 typedef struct s_table	t_table;
 
@@ -103,6 +106,8 @@ t_philo		**philos_init(size_t max_meals, t_table *table);
 t_table		*table_init(char *argv[], int argc);
 
 int			ft_pthreads_init(t_table *table);
+
+int			ft_isdigit(int c);
 
 void		print_message(t_message type, size_t time,
 				size_t philo_id, t_table *table);

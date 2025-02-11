@@ -6,21 +6,12 @@
 /*   By: ogrativ <ogrativ@student.42london.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 15:11:25 by ogrativ           #+#    #+#             */
-/*   Updated: 2025/01/07 14:20:00 by ogrativ          ###   ########.fr       */
+/*   Updated: 2025/02/11 14:41:07 by ogrativ          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 #include <stdint.h>
-
-static int	ft_isdigit(int c)
-{
-	if ('0' <= c && c <= '9')
-	{
-		return (1);
-	}
-	return (0);
-}
 
 //Return -1 is more than max
 static int	is_max(const char *str, size_t len)
