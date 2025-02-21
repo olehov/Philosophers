@@ -6,7 +6,7 @@
 /*   By: ogrativ <ogrativ@student.42london.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 18:23:47 by ogrativ           #+#    #+#             */
-/*   Updated: 2025/02/06 17:36:28 by ogrativ          ###   ########.fr       */
+/*   Updated: 2025/02/21 18:10:56 by ogrativ          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ static bool	is_died(t_table *table, size_t i)
 	current_time = get_time(_MILLISECOND);
 	if (current_time - last_meal_time >= table->time_to_die)
 	{
-		set_bool(&table->is_finished, &table->mutexes->is_finished, true);
 		set_bool(&table->can_print, &table->mutexes->can_print, false);
 		print_message(_DIED, current_time, table->philosophers[i]->id, table);
+		set_bool(&table->is_finished, &table->mutexes->is_finished, true);
 		return (true);
 	}
 	return (false);
