@@ -1,22 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isdigit.c                                       :+:      :+:    :+:   */
+/*   set_bonus.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ogrativ <ogrativ@student.42london.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/11 14:40:31 by ogrativ           #+#    #+#             */
-/*   Updated: 2025/02/12 17:15:25 by ogrativ          ###   ########.fr       */
+/*   Created: 2024/12/21 04:10:34 by ogrativ           #+#    #+#             */
+/*   Updated: 2025/02/12 17:17:27 by ogrativ          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "philo_bonus.h"
 
-int	ft_isdigit(int c)
+void	set_bool(bool *var, sem_t *sem, bool value)
 {
-	if ('0' <= c && c <= '9')
-	{
-		return (1);
-	}
-	return (0);
+	sem_wait(sem);
+	*var = value;
+	sem_post(sem);
+}
+
+void	set_size_t(size_t *var, sem_t *sem, size_t value)
+{
+	sem_wait(sem);
+	*var = value;
+	sem_post(sem);
 }

@@ -1,22 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isdigit.c                                       :+:      :+:    :+:   */
+/*   ft_strlen_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ogrativ <ogrativ@student.42london.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/11 14:40:31 by ogrativ           #+#    #+#             */
-/*   Updated: 2025/02/12 17:15:25 by ogrativ          ###   ########.fr       */
+/*   Created: 2024/03/14 15:00:51 by ogrativ           #+#    #+#             */
+/*   Updated: 2025/02/17 17:24:04 by ogrativ          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "utils_bonus.h"
 
-int	ft_isdigit(int c)
+size_t	ft_strlen(const char *str)
 {
-	if ('0' <= c && c <= '9')
+	size_t	i;
+
+	i = 0;
+	while (str[i] != '\0')
 	{
-		return (1);
+		i++;
 	}
-	return (0);
+	return (i);
 }

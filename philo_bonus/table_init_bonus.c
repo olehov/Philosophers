@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   table_init.c                                       :+:      :+:    :+:   */
+/*   table_init_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ogrativ <ogrativ@student.42london.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 14:52:51 by ogrativ           #+#    #+#             */
-/*   Updated: 2025/02/21 17:33:58 by ogrativ          ###   ########.fr       */
+/*   Updated: 2025/02/21 16:52:30 by ogrativ          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "philo_bonus.h"
 #include <string.h>
 
 void	free_table(t_table *table)
@@ -18,25 +18,16 @@ void	free_table(t_table *table)
 	if (table == NULL)
 		return ;
 	table->can_print = 0;
-	table->is_finished = 0;
-	table->ready_to_start = 0;
 	table->number_of_philos = 0;
 	table->time_to_die = 0;
 	table->time_to_eat = 0;
 	table->time_to_sleep = 0;
-	destroy_mutexes(table->mutexes);
-	if (table->philosophers != NULL)
-		free_philos(table->philosophers);
-	if (table->forks != NULL)
-		free_forks(table->forks);
+	ft_destroy_semaphores(table->semaphores);
+	if (table->forks != SEM_FAILED)
+		close_sem(table->forks, SEM_FORKS_NAME);
+	if (table->pids != NULL)
+		free(table->pids);
 	free(table);
-}
-
-static void	set_bool_values(t_table *table)
-{
-	table->can_print = true;
-	table->is_finished = false;
-	table->ready_to_start = false;
 }
 
 static size_t	set_size_t_values(char **args, int argc, t_table *table)
@@ -54,44 +45,28 @@ static size_t	set_size_t_values(char **args, int argc, t_table *table)
 	return (max_meals);
 }
 
-void	assign_forks(t_table *table)
-{
-	size_t	i;
-	size_t	philos_number;
-
-	i = 0;
-	while (i < table->number_of_philos)
-	{
-		philos_number = table->number_of_philos;
-		table->philosophers[i]->left_fork
-			= table->forks[(i + 1) % philos_number];
-		table->philosophers[i]->rigth_fork = table->forks[i];
-		i++;
-	}
-}
-
 t_table	*table_init(char *args[], int argc)
 {
 	t_table		*table;
-	size_t		max_meals;
 
 	table = malloc(sizeof(t_table));
 	if (table == NULL)
 		return (NULL);
-	set_bool_values(table);
-	max_meals = set_size_t_values(args, argc, table);
+	table->pids = NULL;
+	table->can_print = true;
+	table->max_meals = set_size_t_values(args, argc, table);
 	if (table->time_to_die < table->time_to_eat || table->time_to_die < 1
-		|| table->time_to_eat < 1)
+		|| table->time_to_eat < 1 || table->time_to_sleep < 1)
 		return (free_table(table), NULL);
-	table->mutexes = init_mutexes();
-	if (table->mutexes == NULL)
+	table->semaphores = ft_init_semaphores();
+	if (table->semaphores == NULL)
 		return (free_table(table), NULL);
-	table->philosophers = philos_init(max_meals, table);
-	if (table->philosophers == NULL)
+	table->forks = sem_open(SEM_FORKS_NAME, O_CREAT, 0666,
+			table->number_of_philos);
+	if (table->forks == SEM_FAILED)
 		return (free_table(table), NULL);
-	table->forks = init_forks(table->number_of_philos);
-	if (table->forks[0] == NULL)
-		return (free_table(table), NULL);
-	assign_forks(table);
+	table->pids = malloc(sizeof(pid_t) * table->number_of_philos);
+	if (table->pids == NULL)
+		return (NULL);
 	return (table);
 }

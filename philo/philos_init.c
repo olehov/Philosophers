@@ -6,7 +6,7 @@
 /*   By: ogrativ <ogrativ@student.42london.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 15:49:35 by ogrativ           #+#    #+#             */
-/*   Updated: 2025/01/14 16:47:05 by ogrativ          ###   ########.fr       */
+/*   Updated: 2025/02/13 15:38:43 by ogrativ          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	free_philos(t_philo **philos)
 	i = 0;
 	while (philos[i] != NULL)
 	{
-		free(philos[i]);
+		free_philo(philos[i]);
 		philos[i] = NULL;
 		i++;
 	}
@@ -79,7 +79,7 @@ t_philo	**philos_init(size_t max_meals, t_table *table)
 
 	if (table == NULL)
 		return (NULL);
-	philos = malloc(sizeof(t_philo *) * (table->number_of_philos + 1));
+	philos = malloc(sizeof(t_philo) * (table->number_of_philos + 1));
 	if (philos == NULL)
 		return (NULL);
 	id = 0;

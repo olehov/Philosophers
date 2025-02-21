@@ -1,22 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isdigit.c                                       :+:      :+:    :+:   */
+/*   controler_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ogrativ <ogrativ@student.42london.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/11 14:40:31 by ogrativ           #+#    #+#             */
-/*   Updated: 2025/02/12 17:15:25 by ogrativ          ###   ########.fr       */
+/*   Created: 2025/01/06 18:23:47 by ogrativ           #+#    #+#             */
+/*   Updated: 2025/02/21 16:54:27 by ogrativ          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "philo_bonus.h"
+#include <signal.h>
 
-int	ft_isdigit(int c)
+void	*wait_is_full(void	*value)
 {
-	if ('0' <= c && c <= '9')
+	size_t	i;
+	t_table	*table;
+
+	table = (t_table *)value;
+	i = 0;
+	while (i < table->number_of_philos)
 	{
-		return (1);
+		sem_wait(table->semaphores->is_all_full);
+		i++;
 	}
-	return (0);
+	sem_post(table->semaphores->is_finished);
+	return (NULL);
+}
+
+void	start_controler(t_table	*table)
+{
+	pthread_create(&table->id, NULL, wait_is_full, table);
 }
